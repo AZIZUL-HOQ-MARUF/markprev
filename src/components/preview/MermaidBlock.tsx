@@ -284,9 +284,8 @@ export const MermaidBlock: React.FC<MermaidBlockProps> = ({ code, isDark = false
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         onDoubleClick={handleResetZoom}
-        className={`relative w-full ${heightClass} overflow-hidden bg-white dark:bg-slate-950/80 flex items-center justify-center flex-1 ${
-          isPanning ? 'cursor-grabbing' : 'cursor-grab'
-        }`}
+        className={`relative w-full ${heightClass} overflow-hidden bg-white dark:bg-slate-950/80 flex items-center justify-center flex-1 ${isPanning ? 'cursor-grabbing' : 'cursor-grab'
+          }`}
         title="Drag to move left/right/up/down • Double-click to reset"
       >
         <div className="absolute top-2 left-2 z-10 pointer-events-none opacity-60 hover:opacity-100 transition-opacity flex items-center space-x-1 px-2 py-0.5 rounded-full bg-slate-100/80 dark:bg-slate-800/80 text-[10px] text-slate-500 font-mono">
@@ -301,9 +300,8 @@ export const MermaidBlock: React.FC<MermaidBlockProps> = ({ code, isDark = false
             transformOrigin: 'center center',
             transition: isPanning ? 'none' : 'transform 0.15s ease-out',
           }}
-          className={`flex items-center justify-center p-6 max-w-none transition-opacity ${
-            isLoading ? 'opacity-40' : 'opacity-100'
-          }`}
+          className={`flex items-center justify-center p-6 max-w-none transition-opacity ${isLoading ? 'opacity-40' : 'opacity-100'
+            }`}
           dangerouslySetInnerHTML={{ __html: svgHtml }}
         />
       </div>
@@ -322,7 +320,7 @@ export const MermaidBlock: React.FC<MermaidBlockProps> = ({ code, isDark = false
       {isFullScreen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/75 backdrop-blur-xs animate-fadeIn">
           <div
-            className="w-full h-full max-w-7xl max-h-[92vh] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden select-none"
+            className="w-full h-full max-h-[92vh] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden select-none"
             role="dialog"
             aria-modal="true"
           >

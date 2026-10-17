@@ -47,4 +47,18 @@ describe('ResizableSplitPane', () => {
     fireEvent.doubleClick(separator);
     expect(separator).toHaveAttribute('aria-valuenow', '50');
   });
+
+  it('hides left panel and expands right panel when showLeft is false', () => {
+    render(
+      <ResizableSplitPane
+        showLeft={false}
+        left={<div data-testid="left-content">Left Editor</div>}
+        right={<div data-testid="right-content">Right Preview</div>}
+      />
+    );
+
+    expect(screen.queryByTestId('left-content')).not.toBeInTheDocument();
+    expect(screen.queryByRole('separator')).not.toBeInTheDocument();
+    expect(screen.getByTestId('right-content')).toBeInTheDocument();
+  });
 });

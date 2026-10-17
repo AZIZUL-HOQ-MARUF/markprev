@@ -24,6 +24,31 @@ export function App() {
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [mermaidSvg, setMermaidSvg] = useState<SVGElement | null>(null);
 
+  // Editor panel visibility with localStorage persistence
+  const [isEditorVisible, setIsEditorVisible] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem('markprev_show_editor');
+      if (saved !== null) {
+        return saved === 'true';
+      }
+    } catch {
+      // Ignore
+    }
+    return true;
+  });
+
+  const handleToggleEditor = () => {
+    setIsEditorVisible((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem('markprev_show_editor', next.toString());
+      } catch {
+        // Ignore
+      }
+      return next;
+    });
+  };
+
   // Dark mode
   const [isDark, setIsDark] = useState<boolean>(() => {
     try {
@@ -168,6 +193,8 @@ export function App() {
       {/* Top Header */}
       <Header
         currentType={activeDoc?.type || 'mermaid'}
+        isEditorVisible={isEditorVisible}
+        onToggleEditor={handleToggleEditor}
         onExportSvg={handleExportSvg}
         onExportPng={handleExportPng}
         onExportRaw={handleExportRaw}
@@ -196,6 +223,7 @@ export function App() {
           {activeDoc ? (
             <ResizableSplitPane
               initialPercent={50}
+              showLeft={isEditorVisible}
               left={
                 <CodeEditor
                   content={activeDoc.content}

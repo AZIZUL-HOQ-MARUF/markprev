@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   Download,
   Info,
@@ -9,12 +9,16 @@ import {
   FileText,
   FileDown,
   Layers,
-  Image as ImageIcon
+  Image as ImageIcon,
+  PanelLeftClose,
+  PanelLeftOpen
 } from 'lucide-react';
 import type { DocumentType, PngScale } from '../../types/document';
 
 interface HeaderProps {
   currentType: DocumentType;
+  isEditorVisible: boolean;
+  onToggleEditor: () => void;
   onExportSvg: () => void;
   onExportPng: (scale: PngScale) => void;
   onExportRaw: () => void;
@@ -26,6 +30,8 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({
   currentType,
+  isEditorVisible,
+  onToggleEditor,
   onExportSvg,
   onExportPng,
   onExportRaw,
@@ -82,8 +88,26 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* Right Controls: Export, Help, Theme */}
+      {/* Right Controls: Hide/Show Editor, Export, Help, Theme */}
       <div className="flex items-center space-x-2">
+        {/* Toggle Editor Panel */}
+        <button
+          onClick={onToggleEditor}
+          title={isEditorVisible ? 'Hide Editor Panel (Full Preview)' : 'Show Editor Panel'}
+          className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border text-xs font-medium transition-colors cursor-pointer ${
+            isEditorVisible
+              ? 'bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700/80 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
+              : 'bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300'
+          }`}
+        >
+          {isEditorVisible ? (
+            <PanelLeftClose className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+          ) : (
+            <PanelLeftOpen className="w-3.5 h-3.5 text-indigo-500" />
+          )}
+          <span>{isEditorVisible ? 'Hide Editor' : 'Show Editor'}</span>
+        </button>
+
         {/* High-DPI Export Dropdown */}
         <div ref={exportMenuRef} className="relative">
           <button

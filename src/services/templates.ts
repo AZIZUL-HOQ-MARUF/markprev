@@ -120,26 +120,6 @@ Welcome to **MarkPrev**! A clean, distraction-free markdown and diagram editor b
 
 ---
 
-## 📊 Formatted Table Example
-
-| Feature | Support | Storage | Export Formats |
-| :--- | :---: | :---: | :--- |
-| **Mermaid Diagrams** | ✅ Full Syntax | IndexedDB | SVG, 2x/3x/4x PNG, .mmd |
-| **GitHub Markdown** | ✅ GFM Spec | IndexedDB | HTML, Raw .md |
-| **Pan & Zoom Canvas** | ✅ Interactive | Client Memory | Native SVG Scale |
-
----
-
-## 📝 Interactive Task Checklist
-
-- [x] Initial 50/50 split view with smooth resizer handle
-- [x] Real-time Mermaid validation & instant error diagnostics
-- [x] High-density vector (SVG) and raster (PNG) download
-- [x] Local storage with IndexedDB document manager
-- [ ] Try typing custom markdown or Mermaid graphs!
-
----
-
 ## 💻 Code Block Example
 
 \`\`\`typescript

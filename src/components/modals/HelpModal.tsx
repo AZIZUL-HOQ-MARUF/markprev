@@ -52,44 +52,40 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
         <div className="flex border-b border-slate-200 dark:border-slate-800 px-6 bg-slate-50/30 dark:bg-slate-950/30">
           <button
             onClick={() => setActiveTab('markdown')}
-            className={`py-3 px-3 text-xs font-medium border-b-2 transition-colors flex items-center space-x-1.5 ${
-              activeTab === 'markdown'
+            className={`py-3 px-3 text-xs font-medium border-b-2 transition-colors flex items-center space-x-1.5 ${activeTab === 'markdown'
                 ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400'
                 : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
-            }`}
+              }`}
           >
             <BookOpen className="w-4 h-4" />
             <span>Markdown Styling</span>
           </button>
           <button
             onClick={() => setActiveTab('mermaid')}
-            className={`py-3 px-3 text-xs font-medium border-b-2 transition-colors flex items-center space-x-1.5 ${
-              activeTab === 'mermaid'
+            className={`py-3 px-3 text-xs font-medium border-b-2 transition-colors flex items-center space-x-1.5 ${activeTab === 'mermaid'
                 ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400'
                 : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
-            }`}
+              }`}
           >
             <GitFork className="w-4 h-4" />
             <span>Mermaid Syntax</span>
           </button>
           <button
             onClick={() => setActiveTab('export')}
-            className={`py-3 px-3 text-xs font-medium border-b-2 transition-colors flex items-center space-x-1.5 ${
-              activeTab === 'export'
+            className={`py-3 px-3 text-xs font-medium border-b-2 transition-colors flex items-center space-x-1.5 ${activeTab === 'export'
                 ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400'
                 : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
-            }`}
+              }`}
           >
             <Image className="w-4 h-4" />
             <span>High-DPI Export</span>
           </button>
           <button
             onClick={() => setActiveTab('storage')}
-            className={`py-3 px-3 text-xs font-medium border-b-2 transition-colors flex items-center space-x-1.5 ${
-              activeTab === 'storage'
+            className={`py-3 px-3 text-xs font-medium border-b-2 transition-colors flex items-center space-x-1.5 ${activeTab === 'storage'
                 ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400'
                 : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
-            }`}
+              }`}
           >
             <Database className="w-4 h-4" />
             <span>Local Storage</span>
@@ -124,7 +120,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
                 </h3>
                 <div className="bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 font-mono text-xs">
                   <pre className="text-slate-600 dark:text-slate-400">
-{`| Column 1 | Column 2 | Status |
+                    {`| Column 1 | Column 2 | Status |
 | :---     | :---:    | ---:   |
 | Left     | Center   | Right  |`}
                   </pre>
@@ -148,7 +144,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
                 </h3>
                 <div className="bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 font-mono text-xs">
                   <pre className="text-slate-600 dark:text-slate-400">
-{`\`\`\`typescript
+                    {`\`\`\`typescript
 const greeting: string = "Hello, World!";
 console.log(greeting);
 \`\`\``}
@@ -212,7 +208,7 @@ console.log(greeting);
                 </div>
                 <div className="bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 font-mono text-xs">
                   <pre className="text-slate-600 dark:text-slate-400">
-{`graph TD
+                    {`graph TD
   Start([Start]) --> Check{Is Valid?}
   Check -- Yes --> Success[Approved]
   Check -- No --> Error[Show Error]`}

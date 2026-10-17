@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 interface ResizableSplitPaneProps {
   left: React.ReactNode;
   right: React.ReactNode;
+  showLeft?: boolean;
   minLeftWidthPercent?: number;
   maxLeftWidthPercent?: number;
   initialPercent?: number;
@@ -12,6 +13,7 @@ interface ResizableSplitPaneProps {
 export const ResizableSplitPane: React.FC<ResizableSplitPaneProps> = ({
   left,
   right,
+  showLeft = true,
   minLeftWidthPercent = 20,
   maxLeftWidthPercent = 80,
   initialPercent = 50,
@@ -108,39 +110,43 @@ export const ResizableSplitPane: React.FC<ResizableSplitPaneProps> = ({
       className="relative flex w-full h-full overflow-hidden select-none"
     >
       {/* Left Panel */}
-      <div
-        style={{ width: `${leftPercent}%` }}
-        className="h-full overflow-hidden flex flex-col min-w-0"
-      >
-        {left}
-      </div>
+      {showLeft && (
+        <div
+          style={{ width: `${leftPercent}%` }}
+          className="h-full overflow-hidden flex flex-col min-w-0"
+        >
+          {left}
+        </div>
+      )}
 
       {/* Resizer Divider */}
-      <div
-        role="separator"
-        aria-orientation="vertical"
-        aria-valuenow={leftPercent}
-        title="Drag to resize panels (Double-click to reset to 50/50)"
-        onPointerDown={handlePointerDown}
-        onDoubleClick={handleDoubleClick}
-        className={`relative z-10 flex-shrink-0 w-2.5 transition-colors cursor-col-resize flex items-center justify-center group ${
-          isDragging
-            ? 'bg-indigo-600'
-            : 'bg-slate-200 dark:bg-slate-800 hover:bg-indigo-400 dark:hover:bg-indigo-500'
-        }`}
-      >
-        {/* Subtle grip dots */}
-        <div className="flex flex-col items-center justify-center space-y-1 py-2 px-0.5 rounded pointer-events-none group-hover:scale-110 transition-transform">
-          <span className="w-1 h-1 rounded-full bg-slate-400 dark:bg-slate-500 group-hover:bg-white" />
-          <span className="w-1 h-1 rounded-full bg-slate-400 dark:bg-slate-500 group-hover:bg-white" />
-          <span className="w-1 h-1 rounded-full bg-slate-400 dark:bg-slate-500 group-hover:bg-white" />
-          <span className="w-1 h-1 rounded-full bg-slate-400 dark:bg-slate-500 group-hover:bg-white" />
+      {showLeft && (
+        <div
+          role="separator"
+          aria-orientation="vertical"
+          aria-valuenow={leftPercent}
+          title="Drag to resize panels (Double-click to reset to 50/50)"
+          onPointerDown={handlePointerDown}
+          onDoubleClick={handleDoubleClick}
+          className={`relative z-10 flex-shrink-0 w-2.5 transition-colors cursor-col-resize flex items-center justify-center group ${
+            isDragging
+              ? 'bg-indigo-600'
+              : 'bg-slate-200 dark:bg-slate-800 hover:bg-indigo-400 dark:hover:bg-indigo-500'
+          }`}
+        >
+          {/* Subtle grip dots */}
+          <div className="flex flex-col items-center justify-center space-y-1 py-2 px-0.5 rounded pointer-events-none group-hover:scale-110 transition-transform">
+            <span className="w-1 h-1 rounded-full bg-slate-400 dark:bg-slate-500 group-hover:bg-white" />
+            <span className="w-1 h-1 rounded-full bg-slate-400 dark:bg-slate-500 group-hover:bg-white" />
+            <span className="w-1 h-1 rounded-full bg-slate-400 dark:bg-slate-500 group-hover:bg-white" />
+            <span className="w-1 h-1 rounded-full bg-slate-400 dark:bg-slate-500 group-hover:bg-white" />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Right Panel */}
       <div
-        style={{ width: `${100 - leftPercent}%` }}
+        style={{ width: showLeft ? `${100 - leftPercent}%` : '100%' }}
         className="h-full overflow-hidden flex flex-col min-w-0"
       >
         {right}
