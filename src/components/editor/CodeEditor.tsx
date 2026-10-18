@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Copy, Check, Trash2, Code2, RotateCcw, AlertCircle } from 'lucide-react';
+import { Copy, Check, Trash2, Code2, AlertCircle } from 'lucide-react';
 import type { DocumentType } from '../../types/document';
 
 interface CodeEditorProps {
