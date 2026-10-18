@@ -229,7 +229,6 @@ export function App() {
                   content={activeDoc.content}
                   onChange={handleContentChange}
                   type={activeDoc.type}
-                  onResetToTemplate={handleResetToTemplate}
                   saveStatus={saveStatus}
                 />
               }

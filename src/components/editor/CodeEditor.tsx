@@ -6,7 +6,6 @@ interface CodeEditorProps {
   content: string;
   onChange: (value: string) => void;
   type: DocumentType;
-  onResetToTemplate?: () => void;
   saveStatus?: 'saved' | 'saving';
 }
 
@@ -14,7 +13,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   content,
   onChange,
   type,
-  onResetToTemplate,
   saveStatus = 'saved',
 }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -86,11 +84,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           {/* Debounced Save Status Indicator */}
           <div className="flex items-center space-x-1 pl-2 text-[10px] text-slate-400">
             <span
-              className={`w-1.5 h-1.5 rounded-full ${
-                saveStatus === 'saving'
-                  ? 'bg-amber-400 animate-pulse'
-                  : 'bg-emerald-500'
-              }`}
+              className={`w-1.5 h-1.5 rounded-full ${saveStatus === 'saving'
+                ? 'bg-amber-400 animate-pulse'
+                : 'bg-emerald-500'
+                }`}
             />
             <span className="font-mono">
               {saveStatus === 'saving' ? 'Saving (350ms debounce)...' : 'Saved'}
@@ -118,16 +115,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
             </div>
           ) : (
             <>
-              {onResetToTemplate && (
-                <button
-                  onClick={onResetToTemplate}
-                  title="Reset to starter template"
-                  className="p-1.5 rounded-md text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                </button>
-              )}
-
               <button
                 onClick={handleCopy}
                 title="Copy to clipboard"
