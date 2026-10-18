@@ -125,7 +125,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           title="Create a new Mermaid flowchart/diagram (.mmd)"
           className="flex items-center justify-center space-x-1.5 py-2 px-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60 text-xs font-medium transition-colors shadow-2xs cursor-pointer"
         >
-          <GitFork className="w-3.5 h-3.5" />
           <span>+ Mermaid</span>
         </button>
         <button
@@ -133,7 +132,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           title="Create a new Markdown note/document (.md)"
           className="flex items-center justify-center space-x-1.5 py-2 px-2.5 rounded-xl bg-slate-200/60 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-300/60 dark:border-slate-700/60 text-xs font-medium transition-colors shadow-2xs cursor-pointer"
         >
-          <FileText className="w-3.5 h-3.5" />
           <span>+ Markdown</span>
         </button>
       </div>
@@ -167,22 +165,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <div
                 key={doc.id}
                 onClick={() => onSelectDoc(doc.id)}
-                className={`group relative flex items-center justify-between p-2 rounded-xl text-xs cursor-pointer transition-all ${
-                  isActive
+                className={`group relative flex items-center justify-between p-2 rounded-xl text-xs cursor-pointer transition-all ${isActive
                     ? 'bg-indigo-600 text-white font-medium shadow-xs'
                     : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/60'
-                }`}
+                  }`}
               >
                 {/* Left icon & title */}
                 <div className="flex items-center space-x-2 min-w-0 flex-1 mr-2">
                   <div
-                    className={`p-1.5 rounded-lg flex-shrink-0 ${
-                      isActive
+                    className={`p-1.5 rounded-lg flex-shrink-0 ${isActive
                         ? 'bg-indigo-700/80 text-white'
                         : doc.type === 'mermaid'
-                        ? 'bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400'
-                        : 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400'
-                    }`}
+                          ? 'bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400'
+                          : 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400'
+                      }`}
                   >
                     {doc.type === 'mermaid' ? (
                       <GitFork className="w-3.5 h-3.5" />
@@ -223,9 +219,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     <div className="truncate flex-1 min-w-0">
                       <div className="truncate font-medium">{doc.title}</div>
                       <div
-                        className={`text-[10px] flex items-center space-x-1 mt-0.5 ${
-                          isActive ? 'text-indigo-100' : 'text-slate-400'
-                        }`}
+                        className={`text-[10px] flex items-center space-x-1 mt-0.5 ${isActive ? 'text-indigo-100' : 'text-slate-400'
+                          }`}
                       >
                         <Clock className="w-2.5 h-2.5" />
                         <span>{formatRelativeTime(doc.updatedAt)}</span>
@@ -237,18 +232,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 {/* Right Action Icons (Rename & Delete) */}
                 {!isEditing && (
                   <div
-                    className={`flex items-center space-x-1 ${
-                      isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                    } transition-opacity`}
+                    className={`flex items-center space-x-1 ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                      } transition-opacity`}
                   >
                     <button
                       onClick={(e) => startRename(doc, e)}
                       title="Rename document"
-                      className={`p-1 rounded-md transition-colors ${
-                        isActive
+                      className={`p-1 rounded-md transition-colors ${isActive
                           ? 'hover:bg-indigo-700 text-indigo-100'
                           : 'hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
-                      }`}
+                        }`}
                     >
                       <Edit2 className="w-3 h-3" />
                     </button>
@@ -256,11 +249,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       <button
                         onClick={(e) => handleDeleteClick(doc.id, doc.title, e)}
                         title="Delete document"
-                        className={`p-1 rounded-md transition-colors cursor-pointer ${
-                          isActive
+                        className={`p-1 rounded-md transition-colors cursor-pointer ${isActive
                             ? 'hover:bg-indigo-700 text-rose-200'
                             : 'hover:bg-rose-100 dark:hover:bg-rose-950/60 text-slate-400 hover:text-rose-600'
-                        }`}
+                          }`}
                       >
                         <Trash2 className="w-3 h-3" />
                       </button>
