@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
 import { MermaidBlock } from './MermaidBlock';
 
 interface MarkdownPreviewProps {
@@ -19,6 +20,9 @@ export const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content, isDar
       <div className="mx-auto prose dark:prose-invert prose-indigo">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
+          // shortcut: bundles highlight.js' full common language set (~37); pass `languages` with per-language imports if bundle size matters
+          // plainText keeps mermaid fences as raw text for the MermaidBlock hand-off below
+          rehypePlugins={[[rehypeHighlight, { plainText: ['mermaid', 'mmd'] }]]}
           components={{
             h1: ({ children }) => (
               <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 pb-3 mb-6 border-b border-slate-200 dark:border-slate-800">
@@ -107,12 +111,12 @@ export const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content, isDar
               }
 
               return (
-                <div className="relative my-4 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-900 shadow-xs">
-                  <div className="flex items-center justify-between px-4 py-2 bg-slate-950/80 border-b border-slate-800 text-xs text-slate-400 font-mono">
+                <div className="relative my-4 rounded-xl overflow-hidden border border-[#E5E5E5] dark:border-[#2D2D2D] bg-[#F8F8F8] dark:bg-[#1E1E1E] shadow-xs">
+                  <div className="flex items-center justify-between px-4 py-2 bg-[#F3F3F3] dark:bg-[#252526] border-b border-[#E5E5E5] dark:border-[#2D2D2D] text-xs text-[#616161] dark:text-[#CCCCCC] font-mono">
                     <span>{lang || 'code'}</span>
                   </div>
-                  <pre className="p-4 overflow-x-auto text-xs font-mono text-slate-100 leading-relaxed">
-                    <code {...props}>{children}</code>
+                  <pre className="p-4 overflow-x-auto text-xs font-mono text-[#000000] dark:text-[#D4D4D4] leading-relaxed">
+                    <code className={className} {...props}>{children}</code>
                   </pre>
                 </div>
               );

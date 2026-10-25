@@ -12,6 +12,17 @@ describe('MarkdownPreview', () => {
     expect(screen.getByText('Val1')).toBeInTheDocument();
   });
 
+  it('syntax highlights fenced code blocks by language', () => {
+    const md = `~~~java
+public class Main { }
+~~~`;
+    const { container } = render(<MarkdownPreview content={md} />);
+
+    expect(container.querySelector('code.hljs')).not.toBeNull();
+    expect(container.querySelector('.hljs-keyword')?.textContent).toBe('public');
+    expect(screen.getByText('java')).toBeInTheDocument();
+  });
+
   it('renders embedded Mermaid diagrams when code blocks use language-mermaid', async () => {
     const mdWithMermaid = `# Architecture Note\n\n\`\`\`mermaid\ngraph TD\n  Client --> Server\n\`\`\``;
     render(<MarkdownPreview content={mdWithMermaid} />);
