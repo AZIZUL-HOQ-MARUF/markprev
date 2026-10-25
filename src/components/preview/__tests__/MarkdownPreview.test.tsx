@@ -12,14 +12,20 @@ describe('MarkdownPreview', () => {
     expect(screen.getByText('Val1')).toBeInTheDocument();
   });
 
-  it('syntax highlights fenced code blocks by language', () => {
+  it('syntax highlights fenced code blocks with the VS Code grammars', () => {
     const md = `~~~java
 public class Main { }
+Math.min(a, b);
 ~~~`;
     const { container } = render(<MarkdownPreview content={md} />);
 
-    expect(container.querySelector('code.hljs')).not.toBeNull();
-    expect(container.querySelector('.hljs-keyword')?.textContent).toBe('public');
+    const spans = Array.from(container.querySelectorAll('pre.shiki span'));
+    const token = (t: string) => spans.some((s) => s.textContent === t);
+
+    expect(spans.length).toBeGreaterThan(0);
+    expect(token('public')).toBe(true);
+    // highlight.js left this one plain, the real Java grammar tokenizes it
+    expect(token('Math')).toBe(true);
     expect(screen.getByText('java')).toBeInTheDocument();
   });
 

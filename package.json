@@ -12,6 +12,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@shikijs/langs": "^4.5.0",
+    "@shikijs/rehype": "^4.5.0",
+    "@shikijs/themes": "^4.5.0",
     "@tailwindcss/vite": "^4.3.3",
     "clsx": "^2.1.1",
     "idb": "^8.0.4",
@@ -20,8 +23,8 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-markdown": "^10.1.0",
-    "rehype-highlight": "^7.0.2",
     "remark-gfm": "^4.0.1",
+    "shiki": "^4.5.0",
     "tailwind-merge": "^3.7.0",
     "tailwindcss": "^4.3.3"
   },

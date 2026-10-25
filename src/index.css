@@ -80,125 +80,15 @@
   animation: fadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* VS Code Light+ / Dark+ token colors for highlighted code blocks (rehype-highlight) */
-.hljs-comment,
-.hljs-quote {
-  color: #008000;
+/* Shiki emits both VS Code themes as CSS vars; .dark picks Dark+ over Light+ */
+.shiki,
+.shiki span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
 }
 
-.hljs-keyword,
-.hljs-literal,
-.hljs-symbol,
-.hljs-type,
-.hljs-tag,
-.hljs-name {
-  color: #0000ff;
-}
-
-.hljs-built_in,
-.hljs-title.class_,
-.hljs-class .hljs-title {
-  color: #267f99;
-}
-
-.hljs-title,
-.hljs-title.function_ {
-  color: #795e26;
-}
-
-.hljs-string,
-.hljs-regexp,
-.hljs-char.escape_,
-.hljs-deletion {
-  color: #a31515;
-}
-
-.hljs-number,
-.hljs-addition {
-  color: #098658;
-}
-
-.hljs-variable,
-.hljs-template-variable,
-.hljs-attr,
-.hljs-attribute,
-.hljs-property,
-.hljs-params {
-  color: #001080;
-}
-
-.hljs-meta,
-.hljs-section {
-  color: #af00db;
-}
-
-.hljs-selector-tag,
-.hljs-selector-class,
-.hljs-selector-id {
-  color: #800000;
-}
-
-.hljs-emphasis {
-  font-style: italic;
-}
-
-.hljs-strong {
-  font-weight: 600;
-}
-
-.dark .hljs-comment,
-.dark .hljs-quote {
-  color: #6a9955;
-}
-
-.dark .hljs-keyword,
-.dark .hljs-literal,
-.dark .hljs-symbol,
-.dark .hljs-type,
-.dark .hljs-tag,
-.dark .hljs-name {
-  color: #569cd6;
-}
-
-.dark .hljs-built_in,
-.dark .hljs-title.class_,
-.dark .hljs-class .hljs-title {
-  color: #4ec9b0;
-}
-
-.dark .hljs-title,
-.dark .hljs-title.function_ {
-  color: #dcdcaa;
-}
-
-.dark .hljs-string,
-.dark .hljs-regexp,
-.dark .hljs-char.escape_,
-.dark .hljs-deletion {
-  color: #ce9178;
-}
-
-.dark .hljs-number,
-.dark .hljs-addition {
-  color: #b5cea8;
-}
-
-.dark .hljs-variable,
-.dark .hljs-template-variable,
-.dark .hljs-attr,
-.dark .hljs-attribute,
-.dark .hljs-property,
-.dark .hljs-params {
-  color: #9cdcfe;
-}
-
-.dark .hljs-meta,
-.dark .hljs-section {
-  color: #c586c0;
-}
-
-.dark .hljs-selector-tag,
-.dark .hljs-selector-class,
-.dark .hljs-selector-id {
-  color: #d7ba7d;
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
 }

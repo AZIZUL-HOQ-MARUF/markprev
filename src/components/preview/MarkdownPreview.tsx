@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import rehypeHighlight from 'rehype-highlight';
+import rehypeShikiFromHighlighter from '@shikijs/rehype/core';
+import { highlighter, SHIKI_OPTIONS } from '../../services/highlighter';
 import { MermaidBlock } from './MermaidBlock';
 
 interface MarkdownPreviewProps {
@@ -20,9 +21,9 @@ export const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content, isDar
       <div className="mx-auto prose dark:prose-invert prose-indigo">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
-          // shortcut: bundles highlight.js' full common language set (~37); pass `languages` with per-language imports if bundle size matters
-          // plainText keeps mermaid fences as raw text for the MermaidBlock hand-off below
-          rehypePlugins={[[rehypeHighlight, { plainText: ['mermaid', 'mmd'] }]]}
+          // mermaid is deliberately not a registered language, so those fences stay raw
+          // text for the MermaidBlock hand-off below
+          rehypePlugins={[[rehypeShikiFromHighlighter, highlighter, SHIKI_OPTIONS]]}
           components={{
             h1: ({ children }) => (
               <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 pb-3 mb-6 border-b border-slate-200 dark:border-slate-800">
@@ -84,16 +85,41 @@ export const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content, isDar
             li: ({ children }) => (
               <li className="leading-relaxed">{children}</li>
             ),
-            code: ({ className, children, ...props }) => {
+            pre: ({ className, children, node, ...props }) => {
+              // shiki replaced this <pre>, so the language lives on the inner <code>
+              const codeEl = node?.children?.[0];
+              const codeClass =
+                codeEl && codeEl.type === 'element'
+                  ? String(codeEl.properties?.class ?? codeEl.properties?.className ?? '')
+                  : '';
+              const lang = /language-([a-zA-Z0-9-]+)/.exec(`${className ?? ''} ${codeClass}`)?.[1] ?? '';
+
+              // Mermaid fences render a diagram, not code: no <pre>, no chrome
+              if (lang === 'mermaid' || lang === 'mmd') return <>{children}</>;
+
+              return (
+                <div className="relative my-4 rounded-xl overflow-hidden border border-[#E5E5E5] dark:border-[#2D2D2D] bg-white dark:bg-[#1E1E1E] text-[#000000] dark:text-[#D4D4D4] shadow-xs">
+                  <div className="flex items-center justify-between px-4 py-2 bg-[#F3F3F3] dark:bg-[#252526] border-b border-[#E5E5E5] dark:border-[#2D2D2D] text-xs text-[#616161] dark:text-[#CCCCCC] font-mono">
+                    <span>{lang && lang !== 'text' ? lang : 'code'}</span>
+                  </div>
+                  <pre
+                    className={`${className ?? ''} p-4 overflow-x-auto text-xs font-mono leading-relaxed`}
+                    {...props}
+                  >
+                    {children}
+                  </pre>
+                </div>
+              );
+            },
+            code: ({ className, children, node: _node, ...props }) => {
               const isInline = !className;
-              const match = /language-(\w+)/.exec(className || '');
-              const lang = match ? match[1] : '';
+              const lang = /language-([a-zA-Z0-9-]+)/.exec(className ?? '')?.[1] ?? '';
 
               // Render embedded Mermaid diagram inside Markdown!
               if (!isInline && (lang === 'mermaid' || lang === 'mmd')) {
                 return (
                   <MermaidBlock
-                    code={String(children).replace(/\n$/, '')}
+                    code={String(children).trimEnd()}
                     isDark={isDark}
                   />
                 );
@@ -111,14 +137,9 @@ export const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content, isDar
               }
 
               return (
-                <div className="relative my-4 rounded-xl overflow-hidden border border-[#E5E5E5] dark:border-[#2D2D2D] bg-[#F8F8F8] dark:bg-[#1E1E1E] shadow-xs">
-                  <div className="flex items-center justify-between px-4 py-2 bg-[#F3F3F3] dark:bg-[#252526] border-b border-[#E5E5E5] dark:border-[#2D2D2D] text-xs text-[#616161] dark:text-[#CCCCCC] font-mono">
-                    <span>{lang || 'code'}</span>
-                  </div>
-                  <pre className="p-4 overflow-x-auto text-xs font-mono text-[#000000] dark:text-[#D4D4D4] leading-relaxed">
-                    <code className={className} {...props}>{children}</code>
-                  </pre>
-                </div>
+                <code className={className} {...props}>
+                  {children}
+                </code>
               );
             },
             input: ({ type, checked, ...props }) => {
